@@ -1,0 +1,298 @@
+2024-10-24 15:44:09 INFO:Début du script de téléchargement.
+2024-10-24 15:44:09 INFO:Début de l'exécution de la fonction 'configure_browser'
+2024-10-24 15:44:09 DEBUG:Started executable: `/usr/local/bin/chromedriver` in a child process with pid: 15846 using 0 to output -3
+2024-10-24 15:44:09 DEBUG:POST http://localhost:55741/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'prefs': {'download.default_directory': '/home/maheanuu/mes_scripts/export_gespage/2024', 'download.prompt_for_download': False, 'download.directory_upgrade': True, 'safebrowsing.enabled': True, 'intl.accept_languages': 'fr'}, 'extensions': [], 'args': ['--ignore-certificate-errors', '--allow-running-insecure-content', '--disable-web-security', '--no-sandbox', '--disable-dev-shm-usage', '--lang=fr', '--disable-gpu', '--headless=new', '--user-data-dir=/tmp/chrome_profile']}}}}
+2024-10-24 15:44:09 DEBUG:Starting new HTTP connection (1): localhost:55741
+2024-10-24 15:44:09 DEBUG:http://localhost:55741 "POST /session HTTP/1.1" 200 0
+2024-10-24 15:44:09 DEBUG:Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"130.0.6723.69","chrome":{"chromedriverVersion":"130.0.6723.69 (3ec172b971b9478c515a58f591112c5c23fa4965-refs/branch-heads/6723@{#1452})","userDataDir":"/tmp/chrome_profile"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:41585"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"linux","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"16495ba45dd9ac5cd640a96bbdf32210"}} | headers=HTTPHeaderDict({'Content-Length': '833', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:09 DEBUG:Finished Request
+2024-10-24 15:44:09 INFO:Navigateur configuré et démarré avec succès en mode headless avec la langue 'fr'.
+2024-10-24 15:44:09 INFO:Fin de l'exécution de la fonction 'configure_browser'
+2024-10-24 15:44:09 INFO:Début de l'exécution de la fonction 'download_report'
+2024-10-24 15:44:09 INFO:Accès à la page de connexion...
+2024-10-24 15:44:09 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/url {'url': 'http://192.168.203.37:7180/admin/'}
+2024-10-24 15:44:09 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/url HTTP/1.1" 200 0
+2024-10-24 15:44:09 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:09 DEBUG:Finished Request
+2024-10-24 15:44:09 INFO:Remplissage du formulaire de connexion.
+2024-10-24 15:44:09 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="login_form:j_username"]'}
+2024-10-24 15:44:09 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:09 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.2"}} | headers=HTTPHeaderDict({'Content-Length': '125', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:09 DEBUG:Finished Request
+2024-10-24 15:44:09 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.2/value {'text': 'admin', 'value': ['a', 'd', 'm', 'i', 'n']}
+2024-10-24 15:44:09 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.2/value HTTP/1.1" 200 0
+2024-10-24 15:44:09 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:09 DEBUG:Finished Request
+2024-10-24 15:44:09 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="login_form:j_password"]'}
+2024-10-24 15:44:09 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:09 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.4"}} | headers=HTTPHeaderDict({'Content-Length': '125', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:09 DEBUG:Finished Request
+2024-10-24 15:44:09 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.4/value {'text': '123456', 'value': ['1', '2', '3', '4', '5', '6']}
+2024-10-24 15:44:09 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.4/value HTTP/1.1" 200 0
+2024-10-24 15:44:09 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:09 DEBUG:Finished Request
+2024-10-24 15:44:09 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="login_form:j_idt17"]'}
+2024-10-24 15:44:10 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:10 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.7"}} | headers=HTTPHeaderDict({'Content-Length': '125', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:10 DEBUG:Finished Request
+2024-10-24 15:44:10 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.7'}]}
+2024-10-24 15:44:10 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:10 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:10 DEBUG:Finished Request
+2024-10-24 15:44:10 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.7'}]}
+2024-10-24 15:44:10 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:10 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:10 DEBUG:Finished Request
+2024-10-24 15:44:10 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.7'}]}
+2024-10-24 15:44:10 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:10 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:10 DEBUG:Finished Request
+2024-10-24 15:44:11 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.7/click {}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.48674DA6F2718A68B20D0CD673E3F2C3.e.7/click HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 INFO:Connexion réussie.
+2024-10-24 15:44:12 INFO:Accès à la page de génération du rapport.
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/url {'url': 'http://192.168.203.37:7180/admin/app/report/detail-report.xhtml'}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/url HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 INFO:Définition de la période du rapport : 01/09/2024 - 30/09/2024
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="main_frm:startDate_input"]'}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.34"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.34'}]}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.34'}]}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': "document.getElementById('main_frm:startDate_input').value = '01/09/2024';", 'args': []}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="main_frm:startDate_input"]'}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.34"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.34/value {'text': '\ue007', 'value': ['\ue007']}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.34/value HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="main_frm:endDate_input"]'}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.36"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:12 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.36'}]}
+2024-10-24 15:44:12 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 404 0
+2024-10-24 15:44:12 DEBUG:Remote response: status=404 | data={"value":{"error":"stale element reference","message":"stale element reference: stale element not found in the current frame\n  (Session info: chrome=130.0.6723.69)","stacktrace":"#0 0x55a6c31db10a \u003Cunknown>\n#1 0x55a6c2cf6460 \u003Cunknown>\n#2 0x55a6c2cfc193 \u003Cunknown>\n#3 0x55a6c2cfe0e4 \u003Cunknown>\n#4 0x55a6c2d86a7c \u003Cunknown>\n#5 0x55a6c2d67012 \u003Cunknown>\n#6 0x55a6c2d85af6 \u003Cunknown>\n#7 0x55a6c2d66db3 \u003Cunknown>\n#8 0x55a6c2d35c10 \u003Cunknown>\n#9 0x55a6c2d36bee \u003Cunknown>\n#10 0x55a6c31a739b \u003Cunknown>\n#11 0x55a6c31ab338 \u003Cunknown>\n#12 0x55a6c3194ebc \u003Cunknown>\n#13 0x55a6c31abeb7 \u003Cunknown>\n#14 0x55a6c317a10f \u003Cunknown>\n#15 0x55a6c31c9828 \u003Cunknown>\n#16 0x55a6c31c99f0 \u003Cunknown>\n#17 0x55a6c31d9f86 \u003Cunknown>\n#18 0x7f8ab7f8dea7 start_thread\n"}} | headers=HTTPHeaderDict({'Content-Length': '836', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:12 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="main_frm:endDate_input"]'}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.51"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.51'}]}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.51'}]}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': "document.getElementById('main_frm:endDate_input').value = '30/09/2024';", 'args': []}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="main_frm:endDate_input"]'}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.51"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.51/value {'text': '\ue007', 'value': ['\ue007']}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.51/value HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element {'using': 'css selector', 'value': '[id="main_frm:j_idt134"]'}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.60"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.60'}]}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.60'}]}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.60'}]}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 DEBUG:POST http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.60/click {}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "POST /session/16495ba45dd9ac5cd640a96bbdf32210/element/f.73B2A12061F092F1EA3B9D282007AEC8.d.6B566B8A5E3C1559C5BFAF6CACF78279.e.60/click HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 INFO:Génération du rapport initiée.
+2024-10-24 15:44:13 INFO:En attente de la fin du téléchargement...
+2024-10-24 15:44:13 INFO:Fichier téléchargé avec succès : /home/maheanuu/mes_scripts/export_gespage/2024/volume_USER_2024-09-01_2024-09-30.csv
+2024-10-24 15:44:13 DEBUG:DELETE http://localhost:55741/session/16495ba45dd9ac5cd640a96bbdf32210 {}
+2024-10-24 15:44:13 DEBUG:http://localhost:55741 "DELETE /session/16495ba45dd9ac5cd640a96bbdf32210 HTTP/1.1" 200 0
+2024-10-24 15:44:13 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:44:13 DEBUG:Finished Request
+2024-10-24 15:44:13 INFO:Navigateur fermé.
+2024-10-24 15:44:13 INFO:Fin de l'exécution de la fonction 'download_report'
+2024-10-24 15:44:13 INFO:Début de l'exécution de la fonction 'copy_file_to_new_location'
+2024-10-24 15:44:13 INFO:Le fichier est déjà à l'emplacement souhaité : /home/maheanuu/mes_scripts/export_gespage/2024/volume_USER_2024-09-01_2024-09-30.csv
+2024-10-24 15:44:13 INFO:Fin de l'exécution de la fonction 'copy_file_to_new_location'
+2024-10-24 15:44:13 INFO:Script terminé avec succès.
+2024-10-24 15:45:50 INFO:Début du script de téléchargement.
+2024-10-24 15:45:50 INFO:Début de l'exécution de la fonction 'configure_browser'
+2024-10-24 15:45:50 DEBUG:Started executable: `/usr/local/bin/chromedriver` in a child process with pid: 16020 using 0 to output -3
+2024-10-24 15:45:50 DEBUG:POST http://localhost:49537/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'goog:chromeOptions': {'prefs': {'download.default_directory': '/home/maheanuu/mes_scripts/export_gespage/2024', 'download.prompt_for_download': False, 'download.directory_upgrade': True, 'safebrowsing.enabled': True, 'intl.accept_languages': 'fr'}, 'extensions': [], 'args': ['--ignore-certificate-errors', '--allow-running-insecure-content', '--disable-web-security', '--no-sandbox', '--disable-dev-shm-usage', '--lang=fr', '--disable-gpu', '--headless=new', '--user-data-dir=/tmp/chrome_profile']}}}}
+2024-10-24 15:45:50 DEBUG:Starting new HTTP connection (1): localhost:49537
+2024-10-24 15:45:50 DEBUG:http://localhost:49537 "POST /session HTTP/1.1" 200 0
+2024-10-24 15:45:50 DEBUG:Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"130.0.6723.69","chrome":{"chromedriverVersion":"130.0.6723.69 (3ec172b971b9478c515a58f591112c5c23fa4965-refs/branch-heads/6723@{#1452})","userDataDir":"/tmp/chrome_profile"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:33271"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"linux","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"88734fe6a1fcf7bdf1c5b50fc9445c9f"}} | headers=HTTPHeaderDict({'Content-Length': '833', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:50 DEBUG:Finished Request
+2024-10-24 15:45:50 INFO:Navigateur configuré et démarré avec succès en mode headless avec la langue 'fr'.
+2024-10-24 15:45:50 INFO:Fin de l'exécution de la fonction 'configure_browser'
+2024-10-24 15:45:50 INFO:Début de l'exécution de la fonction 'download_report'
+2024-10-24 15:45:50 INFO:Accès à la page de connexion...
+2024-10-24 15:45:50 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/url {'url': 'http://192.168.203.37:7180/admin/'}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/url HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 INFO:Remplissage du formulaire de connexion.
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="login_form:j_username"]'}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.3"}} | headers=HTTPHeaderDict({'Content-Length': '125', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.3/value {'text': 'admin', 'value': ['a', 'd', 'm', 'i', 'n']}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.3/value HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="login_form:j_password"]'}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.5"}} | headers=HTTPHeaderDict({'Content-Length': '125', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.5/value {'text': '123456', 'value': ['1', '2', '3', '4', '5', '6']}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.5/value HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="login_form:j_idt17"]'}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.8"}} | headers=HTTPHeaderDict({'Content-Length': '125', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.8'}]}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.8'}]}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:51 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.8'}]}
+2024-10-24 15:45:51 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:51 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:51 DEBUG:Finished Request
+2024-10-24 15:45:52 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.8/click {}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.C0C7118B129F239555E282324B162945.e.8/click HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 INFO:Connexion réussie.
+2024-10-24 15:45:53 INFO:Accès à la page de génération du rapport.
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/url {'url': 'http://192.168.203.37:7180/admin/app/report/detail-report.xhtml'}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/url HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 INFO:Définition de la période du rapport : 01/09/2024 - 30/09/2024
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="main_frm:startDate_input"]'}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.30"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.30'}]}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.30'}]}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': "document.getElementById('main_frm:startDate_input').value = '01/09/2024';", 'args': []}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="main_frm:startDate_input"]'}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.30"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.30/value {'text': '\ue007', 'value': ['\ue007']}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.30/value HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="main_frm:endDate_input"]'}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.32"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:53 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.32'}]}
+2024-10-24 15:45:53 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 404 0
+2024-10-24 15:45:53 DEBUG:Remote response: status=404 | data={"value":{"error":"stale element reference","message":"stale element reference: stale element not found in the current frame\n  (Session info: chrome=130.0.6723.69)","stacktrace":"#0 0x559568b4910a \u003Cunknown>\n#1 0x559568664460 \u003Cunknown>\n#2 0x55956866a193 \u003Cunknown>\n#3 0x55956866c0e4 \u003Cunknown>\n#4 0x5595686f4a7c \u003Cunknown>\n#5 0x5595686d5012 \u003Cunknown>\n#6 0x5595686f3af6 \u003Cunknown>\n#7 0x5595686d4db3 \u003Cunknown>\n#8 0x5595686a3c10 \u003Cunknown>\n#9 0x5595686a4bee \u003Cunknown>\n#10 0x559568b1539b \u003Cunknown>\n#11 0x559568b19338 \u003Cunknown>\n#12 0x559568b02ebc \u003Cunknown>\n#13 0x559568b19eb7 \u003Cunknown>\n#14 0x559568ae810f \u003Cunknown>\n#15 0x559568b37828 \u003Cunknown>\n#16 0x559568b379f0 \u003Cunknown>\n#17 0x559568b47f86 \u003Cunknown>\n#18 0x7f31e82ebea7 start_thread\n"}} | headers=HTTPHeaderDict({'Content-Length': '836', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:53 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="main_frm:endDate_input"]'}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.51"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.51'}]}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.51'}]}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': "document.getElementById('main_frm:endDate_input').value = '30/09/2024';", 'args': []}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="main_frm:endDate_input"]'}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.51"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.51/value {'text': '\ue007', 'value': ['\ue007']}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.51/value HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element {'using': 'css selector', 'value': '[id="main_frm:j_idt134"]'}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.60"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var k=this||self;function aa(a){return"string...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.60'}]}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.60'}]}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync {'script': 'arguments[0].scrollIntoView(true);', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.60'}]}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/execute/sync HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 DEBUG:POST http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.60/click {}
+2024-10-24 15:45:54 DEBUG:http://localhost:49537 "POST /session/88734fe6a1fcf7bdf1c5b50fc9445c9f/element/f.5BF2714D34A1730B7B469323E365C443.d.137BA4FDFBCCC519E1380EE6DACDA037.e.60/click HTTP/1.1" 200 0
+2024-10-24 15:45:54 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:54 DEBUG:Finished Request
+2024-10-24 15:45:54 INFO:Génération du rapport initiée.
+2024-10-24 15:45:54 INFO:En attente de la fin du téléchargement...
+2024-10-24 15:45:54 INFO:Fichier téléchargé avec succès : /home/maheanuu/mes_scripts/export_gespage/2024/volume_USER_2024-09-01_2024-09-30.csv
+2024-10-24 15:45:54 DEBUG:DELETE http://localhost:49537/session/88734fe6a1fcf7bdf1c5b50fc9445c9f {}
+2024-10-24 15:45:55 DEBUG:http://localhost:49537 "DELETE /session/88734fe6a1fcf7bdf1c5b50fc9445c9f HTTP/1.1" 200 0
+2024-10-24 15:45:55 DEBUG:Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2024-10-24 15:45:55 DEBUG:Finished Request
+2024-10-24 15:45:55 INFO:Navigateur fermé.
+2024-10-24 15:45:55 INFO:Fin de l'exécution de la fonction 'download_report'
+2024-10-24 15:45:55 INFO:Début de l'exécution de la fonction 'copy_file_to_new_location'
+2024-10-24 15:45:55 INFO:Le fichier est déjà à l'emplacement souhaité : /home/maheanuu/mes_scripts/export_gespage/2024/volume_USER_2024-09-01_2024-09-30.csv
+2024-10-24 15:45:55 INFO:Fin de l'exécution de la fonction 'copy_file_to_new_location'
+2024-10-24 15:45:55 INFO:Script terminé avec succès.
