@@ -1,0 +1,170 @@
+import os
+import shutil
+import logging
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+import time
+from datetime import datetime, timedelta
+
+# Configuration des logs : fichier + console
+current_year = datetime.now().year
+log_directory = f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}/logs"
+os.makedirs(log_directory, exist_ok=True)
+log_file_path = os.path.join(log_directory, "download_gespage_report.log")
+
+# Configurer le logger
+# Logger pour le fichier (DEBUG) et la console (INFO)
+file_handler = logging.FileHandler(log_file_path)
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s:%(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
+
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)  # Afficher uniquement les messages INFO et plus sur la console
+console_handler.setFormatter(logging.Formatter('%(message)s'))
+
+# Ajouter les handlers au logger
+logging.basicConfig(
+    level=logging.DEBUG,
+    handlers=[file_handler, console_handler]
+)
+
+def log_start_end(func):
+    """Decorator to log the start and end of functions."""
+    def wrapper(*args, **kwargs):
+        logging.info(f"Début de l'exécution de la fonction '{func.__name__}'")
+        result = func.__call__(*args, **kwargs)
+        logging.info(f"Fin de l'exécution de la fonction '{func.__name__}'")
+        return result
+    return wrapper
+
+# Helper function to get the first and last date of the previous month
+def get_previous_month_dates():
+    today = datetime.today()
+    first_day_of_current_month = today.replace(day=1)
+    last_day_of_previous_month = first_day_of_current_month - timedelta(days=1)
+    first_day_of_previous_month = last_day_of_previous_month.replace(day=1)
+    return first_day_of_previous_month.strftime("%d/%m/%Y"), last_day_of_previous_month.strftime("%d/%m/%Y")
+
+# Configuration du navigateur avec options détaillées
+@log_start_end
+def configure_browser():
+    chrome_options = Options()
+    chrome_options.add_experimental_option('prefs', {
+        "download.default_directory": "/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}",
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "safebrowsing.enabled": True
+    })
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--allow-running-insecure-content")
+    chrome_options.add_argument("--safebrowsing-disable-download-protection")
+    chrome_options.add_argument("safebrowsing-disable-extension-blacklist")
+    chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--remote-debugging-port=9222")
+
+    # Utiliser le chemin du chromedriver extrait dans le répertoire `chromedriver-linux64`
+    driver_path = "./chromedriver-linux64/chromedriver"
+    try:
+        driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+        logging.info("Navigateur configuré et démarré avec succès.")
+        return driver
+    except Exception as e:
+        logging.exception("Erreur lors de la configuration du navigateur.")
+        raise e
+
+# Fonction pour se connecter et télécharger le rapport
+@log_start_end
+def download_report(driver):
+    try:
+        logging.info("Accès à la page de connexion...")
+        driver.get("http://192.168.203.37:7180/admin/")
+
+        # Remplir le formulaire de connexion
+        logging.info("Remplissage du formulaire de connexion.")
+        driver.find_element(By.ID, "login_form:j_username").send_keys("admin")
+        driver.find_element(By.ID, "login_form:j_password").send_keys("123456")
+
+        # Faire défiler jusqu'au bouton et attendre qu'il soit cliquable
+        login_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "login_form:j_idt17")))
+        driver.execute_script("arguments[0].scrollIntoView(true);", login_button)
+        time.sleep(1)
+        login_button.click()
+        logging.info("Connexion réussie.")
+
+        # Naviguer vers la page spécifique pour générer le rapport
+        logging.info("Accès à la page de génération du rapport.")
+        driver.get("http://192.168.203.37:7180/admin/app/report/detail-report.xhtml")
+
+        # Définir les dates du mois précédent
+        start_date, end_date = get_previous_month_dates()
+        logging.info(f"Définition de la période du rapport : {start_date} - {end_date}")
+
+        # Interagir avec les champs de date en ajoutant une attente pour s'assurer qu'ils sont visibles
+        wait = WebDriverWait(driver, 20)
+        start_date_input = wait.until(EC.visibility_of_element_located((By.ID, "main_frm:startDate_input")))
+        end_date_input = wait.until(EC.visibility_of_element_located((By.ID, "main_frm:endDate_input")))
+
+        # Clear and set the new dates
+        driver.execute_script("arguments[0].value = '';", start_date_input)
+        start_date_input.send_keys(start_date)
+        driver.execute_script("arguments[0].value = '';", end_date_input)
+        end_date_input.send_keys(end_date)
+
+        # Cliquer sur le bouton pour générer le rapport
+        wait.until(EC.element_to_be_clickable((By.ID, "main_frm:j_idt134"))).click()
+        logging.info("Génération du rapport initiée.")
+
+        # Attendre le téléchargement
+        time.sleep(10)
+
+        # Trouver le fichier téléchargé le plus récent
+        documents_path = f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}"
+        file_to_send = max([os.path.join(documents_path, f) for f in os.listdir(documents_path)], key=os.path.getctime)
+        logging.info(f"Fichier téléchargé avec succès : {file_to_send}")
+        
+        return file_to_send
+    except Exception as e:
+        logging.exception("Erreur lors du téléchargement du rapport.")
+        raise e
+    finally:
+        driver.quit()
+        logging.info("Navigateur fermé.")
+
+# Fonction pour copier le fichier vers le nouvel emplacement local, avec création de répertoires par année
+@log_start_end
+def copy_file_to_new_location(file_to_send):
+    year_folder = f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}/"
+    try:
+        new_file_path = os.path.join(year_folder, os.path.basename(file_to_send))
+        # Vérifier si le fichier source et la destination sont les mêmes
+        if os.path.abspath(file_to_send) == os.path.abspath(new_file_path):
+            logging.info(f"Le fichier est déjà à l'emplacement souhaité : {new_file_path}")
+            return new_file_path
+        
+        # Copier le fichier
+        shutil.copy(file_to_send, new_file_path)
+        logging.info(f"Fichier copié avec succès vers : {new_file_path}")
+        return new_file_path
+    except Exception as e:
+        logging.exception("Erreur lors de la copie du fichier vers le nouvel emplacement local.")
+        raise e
+
+# Exécution du script principal
+if __name__ == "__main__":
+    logging.info("Début du script de téléchargement.")
+    try:
+        driver = configure_browser()
+        file_to_send = download_report(driver)
+        # Copier le fichier vers le nouvel emplacement local
+        copy_file_to_new_location(file_to_send)
+        logging.info("Script terminé avec succès.")
+    except Exception as e:
+        logging.error(f"Script échoué : {e}")
+

@@ -1,19 +1,24 @@
 import os
 import shutil
 import logging
+import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime, timedelta
-from selenium.common.exceptions import StaleElementReferenceException
+import re
+
+# Configuration des couleurs ANSI
+RED = "\033[91m"
+GREEN = "\033[92m"
+RESET = "\033[0m"
 
 # Configuration des logs : fichier + console
-log_directory = "/home/maheanuu/mes_scripts/export_gespage/logs"
+current_year = datetime.now().year
+log_directory = f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}/logs"
 os.makedirs(log_directory, exist_ok=True)
 log_file_path = os.path.join(log_directory, "download_gespage_report.log")
 
@@ -24,7 +29,17 @@ file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s:%(message
 
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
-console_handler.setFormatter(logging.Formatter('%(message)s'))
+
+# Formatter personnalisé avec couleur pour le terminal
+class ColorFormatter(logging.Formatter):
+    def format(self, record):
+        if record.levelno == logging.INFO:
+            record.msg = f"{GREEN}{record.msg}{RESET}"
+        elif record.levelno >= logging.ERROR:
+            record.msg = f"{RED}{record.msg}{RESET}"
+        return super().format(record)
+
+console_handler.setFormatter(ColorFormatter('%(message)s'))
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -46,79 +61,64 @@ def get_previous_month_dates():
     first_day_of_current_month = today.replace(day=1)
     last_day_of_previous_month = first_day_of_current_month - timedelta(days=1)
     first_day_of_previous_month = last_day_of_previous_month.replace(day=1)
-    
-    start_date = first_day_of_previous_month.strftime("%d/%m/%Y")
-    end_date = last_day_of_previous_month.strftime("%d/%m/%Y")
-    
-    return start_date, end_date
+    return first_day_of_previous_month.strftime("%d/%m/%Y"), last_day_of_previous_month.strftime("%d/%m/%Y")
+
+def load_credentials(config_path="config.json"):
+    """Charge les identifiants depuis un fichier JSON."""
+    try:
+        with open(config_path, "r") as config_file:
+            credentials = json.load(config_file)
+            return credentials.get("username"), credentials.get("password")
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        logging.error(f"Erreur lors du chargement des identifiants : {e}")
+        raise
 
 @log_start_end
-def configure_browser(language_code="fr"):
+def configure_browser():
     chrome_options = Options()
     chrome_options.add_experimental_option('prefs', {
-        "download.default_directory": f"/home/maheanuu/mes_scripts/export_gespage/{datetime.now().year}",
+        "download.default_directory": f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}",
         "download.prompt_for_download": False,
         "download.directory_upgrade": True,
-        "safebrowsing.enabled": True,
-        "intl.accept_languages": language_code  # Force la préférence linguistique
+        "safebrowsing.enabled": True
     })
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--allow-running-insecure-content")
+    chrome_options.add_argument("--safebrowsing-disable-download-protection")
+    chrome_options.add_argument("safebrowsing-disable-extension-blacklist")
     chrome_options.add_argument("--disable-web-security")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument(f"--lang={language_code}")  # Assure que Chrome s'affiche dans la langue souhaitée
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--headless=new")  # Active le mode headless
-    chrome_options.add_argument("--user-data-dir=/tmp/chrome_profile")  # Utilise un profil temporaire
+    chrome_options.add_argument("--remote-debugging-port=9222")
 
-    driver_path = "/usr/local/bin/chromedriver"
+    driver_path = "./chromedriver-linux64/chromedriver"
     try:
-        service = Service(driver_path)
-        driver = webdriver.Chrome(service=service, options=chrome_options)
-        logging.info(f"Navigateur configuré et démarré avec succès en mode headless avec la langue '{language_code}'.")
+        driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+        logging.info("Navigateur configuré et démarré avec succès.")
         return driver
     except Exception as e:
-        logging.exception("Erreur lors de la configuration du navigateur.")
+        logging.error("Erreur lors de la configuration du navigateur.")
         raise e
-
-def retry_until_clickable(driver, by, value, retries=5, delay=1):
-    for attempt in range(retries):
-        try:
-            element = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((by, value)))
-            driver.execute_script("arguments[0].scrollIntoView(true);", element)
-            return element
-        except (StaleElementReferenceException, Exception) as e:
-            logging.warning(f"Tentative {attempt + 1} échouée pour localiser {value}. Erreur: {e}. Nouvel essai dans {delay} secondes...")
-            time.sleep(delay)
-    raise Exception(f"Impossible de localiser et interagir avec l'élément {value} après {retries} tentatives.")
-
-def wait_for_download(directory, timeout=300):
-    """Attend jusqu'à ce qu'un fichier complet apparaisse dans le répertoire spécifié."""
-    logging.info("En attente de la fin du téléchargement...")
-    end_time = time.time() + timeout
-    while time.time() < end_time:
-        for filename in os.listdir(directory):
-            if filename.startswith(".") or filename.endswith(".crdownload"):  # Ignore les fichiers temporaires ou cachés
-                continue
-            file_path = os.path.join(directory, filename)
-            if os.path.isfile(file_path):
-                return file_path
-        time.sleep(1)
-    raise TimeoutError("Le téléchargement a pris trop de temps ou a échoué.")
 
 @log_start_end
 def download_report(driver):
-    documents_path = f"/home/maheanuu/mes_scripts/export_gespage/{datetime.now().year}"
     try:
         logging.info("Accès à la page de connexion...")
         driver.get("http://192.168.203.37:7180/admin/")
 
-        logging.info("Remplissage du formulaire de connexion.")
-        driver.find_element(By.ID, "login_form:j_username").send_keys("admin")
-        driver.find_element(By.ID, "login_form:j_password").send_keys("123456")
+        # Charger les identifiants depuis le fichier config.json
+        username, password = load_credentials()
+        if not username or not password:
+            logging.error("Identifiants manquants dans config.json.")
+            return
 
-        login_button = retry_until_clickable(driver, By.ID, "login_form:j_idt17")
+        logging.info("Remplissage du formulaire de connexion.")
+        driver.find_element(By.ID, "login_form:j_username").send_keys(username)
+        driver.find_element(By.ID, "login_form:j_password").send_keys(password)
+
+        login_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "login_form:j_idt17")))
         driver.execute_script("arguments[0].scrollIntoView(true);", login_button)
         time.sleep(1)
         login_button.click()
@@ -130,55 +130,51 @@ def download_report(driver):
         start_date, end_date = get_previous_month_dates()
         logging.info(f"Définition de la période du rapport : {start_date} - {end_date}")
 
-        start_date_input = retry_until_clickable(driver, By.ID, "main_frm:startDate_input")
-        driver.execute_script(f"document.getElementById('main_frm:startDate_input').value = '{start_date}';")
-        start_date_input = driver.find_element(By.ID, "main_frm:startDate_input")
-        start_date_input.send_keys(Keys.ENTER)
+        wait = WebDriverWait(driver, 20)
+        start_date_input = wait.until(EC.visibility_of_element_located((By.ID, "main_frm:startDate_input")))
+        end_date_input = wait.until(EC.visibility_of_element_located((By.ID, "main_frm:endDate_input")))
 
-        end_date_input = retry_until_clickable(driver, By.ID, "main_frm:endDate_input")
-        driver.execute_script(f"document.getElementById('main_frm:endDate_input').value = '{end_date}';")
-        end_date_input = driver.find_element(By.ID, "main_frm:endDate_input")
-        end_date_input.send_keys(Keys.ENTER)
+        driver.execute_script("arguments[0].value = '';", start_date_input)
+        start_date_input.send_keys(start_date)
+        driver.execute_script("arguments[0].value = '';", end_date_input)
+        end_date_input.send_keys(end_date)
 
-        generate_button = retry_until_clickable(driver, By.ID, "main_frm:j_idt134")
-        driver.execute_script("arguments[0].scrollIntoView(true);", generate_button)
-        generate_button.click()
+        wait.until(EC.element_to_be_clickable((By.ID, "main_frm:j_idt134"))).click()
         logging.info("Génération du rapport initiée.")
-        
-        file_to_send = wait_for_download(documents_path)
+
+        time.sleep(10)
+
+        documents_path = f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}"
+        file_to_send = max([os.path.join(documents_path, f) for f in os.listdir(documents_path)], key=os.path.getctime)
         logging.info(f"Fichier téléchargé avec succès : {file_to_send}")
 
+        file_to_send = standardize_filename(file_to_send)
+        logging.info(f"Nom de fichier standardisé : {file_to_send}")
+
+        if os.path.exists(file_to_send):
+            logging.info(f"Le fichier {file_to_send} est prêt.")
+        else:
+            logging.error(f"Le fichier {file_to_send} est introuvable.")
+        
         return file_to_send
     except Exception as e:
-        logging.exception("Erreur lors du téléchargement du rapport.")
+        logging.error("Erreur lors du téléchargement du rapport.")
         raise e
     finally:
         driver.quit()
         logging.info("Navigateur fermé.")
 
-@log_start_end
-def copy_file_to_new_location(file_to_send):
-    year_folder = f"/home/maheanuu/mes_scripts/export_gespage/{datetime.now().year}/"
-    try:
-        new_file_path = os.path.join(year_folder, os.path.basename(file_to_send))
-        if os.path.abspath(file_to_send) == os.path.abspath(new_file_path):
-            logging.info(f"Le fichier est déjà à l'emplacement souhaité : {new_file_path}")
-            return new_file_path
-
-        shutil.copy(file_to_send, new_file_path)
-        logging.info(f"Fichier copié avec succès vers : {new_file_path}")
-        return new_file_path
-    except Exception as e:
-        logging.exception("Erreur lors de la copie du fichier vers le nouvel emplacement local.")
-        raise e
+def standardize_filename(file_path):
+    standardized_name = re.sub(r' \(\d+\)', '', file_path)
+    if standardized_name != file_path:
+        os.rename(file_path, standardized_name)
+    return standardized_name
 
 if __name__ == "__main__":
     logging.info("Début du script de téléchargement.")
-    language = "fr"  # Définir la langue ici, par exemple : "en", "fr", "es"
     try:
-        driver = configure_browser(language_code=language)
-        file_to_send = download_report(driver)
-        copy_file_to_new_location(file_to_send)
+        driver = configure_browser()
+        download_report(driver)
         logging.info("Script terminé avec succès.")
     except Exception as e:
         logging.error(f"Script échoué : {e}")
