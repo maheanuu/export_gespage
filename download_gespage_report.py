@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import time
 from datetime import datetime, timedelta
 import re
@@ -16,9 +17,12 @@ RED = "\033[91m"
 GREEN = "\033[92m"
 RESET = "\033[0m"
 
-# Configuration des logs : fichier + console
+# Définir le répertoire de base comme le répertoire où est hébergé le script
+base_directory = os.path.dirname(os.path.abspath(__file__))
 current_year = datetime.now().year
-log_directory = f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}/logs"
+
+# Configuration des logs : fichier + console
+log_directory = os.path.join(base_directory, f"StatistiqueGespage/{current_year}/logs")
 os.makedirs(log_directory, exist_ok=True)
 log_file_path = os.path.join(log_directory, "download_gespage_report.log")
 
@@ -64,20 +68,21 @@ def get_previous_month_dates():
     return first_day_of_previous_month.strftime("%d/%m/%Y"), last_day_of_previous_month.strftime("%d/%m/%Y")
 
 def load_credentials(config_path="config.json"):
-    """Charge les identifiants depuis un fichier JSON."""
+    """Charge les identifiants et l'URL depuis un fichier JSON."""
+    config_path = os.path.join(base_directory, config_path)
     try:
         with open(config_path, "r") as config_file:
-            credentials = json.load(config_file)
-            return credentials.get("username"), credentials.get("password")
+            config = json.load(config_file)
+            return config.get("username"), config.get("password"), config.get("url")
     except (FileNotFoundError, json.JSONDecodeError) as e:
-        logging.error(f"Erreur lors du chargement des identifiants : {e}")
+        logging.error(f"Erreur lors du chargement de la configuration : {e}")
         raise
 
 @log_start_end
 def configure_browser():
     chrome_options = Options()
     chrome_options.add_experimental_option('prefs', {
-        "download.default_directory": f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}",
+        "download.default_directory": os.path.join(base_directory, f"StatistiqueGespage/{current_year}"),
         "download.prompt_for_download": False,
         "download.directory_upgrade": True,
         "safebrowsing.enabled": True
@@ -93,9 +98,15 @@ def configure_browser():
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--remote-debugging-port=9222")
 
-    driver_path = "./chromedriver-linux64/chromedriver"
+    driver_path = os.path.join(base_directory, "chromedriver-linux64", "chromedriver")
+    if not os.access(driver_path, os.X_OK):
+        os.chmod(driver_path, 0o755)  # Rendre exécutable si nécessaire
+    
+    # Utilisation de Service pour spécifier le chemin du driver
+    service = Service(driver_path)
+    
     try:
-        driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+        driver = webdriver.Chrome(service=service, options=chrome_options)
         logging.info("Navigateur configuré et démarré avec succès.")
         return driver
     except Exception as e:
@@ -105,14 +116,14 @@ def configure_browser():
 @log_start_end
 def download_report(driver):
     try:
-        logging.info("Accès à la page de connexion...")
-        driver.get("http://192.168.203.37:7180/admin/")
-
-        # Charger les identifiants depuis le fichier config.json
-        username, password = load_credentials()
-        if not username or not password:
-            logging.error("Identifiants manquants dans config.json.")
+        # Charger les identifiants et l'URL depuis le fichier config.json
+        username, password, url = load_credentials()
+        if not username or not password or not url:
+            logging.error("Informations de connexion manquantes dans config.json.")
             return
+
+        logging.info("Accès à la page de connexion...")
+        driver.get(url)
 
         logging.info("Remplissage du formulaire de connexion.")
         driver.find_element(By.ID, "login_form:j_username").send_keys(username)
@@ -125,7 +136,7 @@ def download_report(driver):
         logging.info("Connexion réussie.")
 
         logging.info("Accès à la page de génération du rapport.")
-        driver.get("http://192.168.203.37:7180/admin/app/report/detail-report.xhtml")
+        driver.get(f"{url}/app/report/detail-report.xhtml")
 
         start_date, end_date = get_previous_month_dates()
         logging.info(f"Définition de la période du rapport : {start_date} - {end_date}")
@@ -144,7 +155,7 @@ def download_report(driver):
 
         time.sleep(10)
 
-        documents_path = f"/root/forge.education.gouv.fr/StatistiqueGespage/{current_year}"
+        documents_path = os.path.join(base_directory, f"StatistiqueGespage/{current_year}")
         file_to_send = max([os.path.join(documents_path, f) for f in os.listdir(documents_path)], key=os.path.getctime)
         logging.info(f"Fichier téléchargé avec succès : {file_to_send}")
 

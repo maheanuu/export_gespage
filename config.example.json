@@ -1,5 +1,7 @@
 {
   "username": "your-username",
-  "password": "your-password"
+  "password": "your-password",
+  "url": "http://url-gespage/admin/"
 }
+
 
