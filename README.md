@@ -75,7 +75,3 @@ Les contributions sont les bienvenues ! Si vous souhaitez améliorer le script, 
 ### Contact
 
 Pour toute question ou assistance, vous pouvez me contacter directement via GitHub.
-
----
-
-Ce texte peut être ajouté directement au fichier `README.md` de votre dépôt GitHub, et il présente toutes les informations clés sur le script ainsi que des instructions claires pour son utilisation et sa contribution.
